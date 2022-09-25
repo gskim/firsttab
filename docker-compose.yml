@@ -1,0 +1,35 @@
+version: '3'
+
+# networks:
+#   network:
+
+services:
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.0
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --explicit_defaults_for_timestamp=1
+    container_name: firsttab-mysql
+    # networks:
+    #   - network
+    ports:
+      - "3306:3306"
+    environment:
+      - TZ=Asia/Seoul
+      - MYSQL_DATABASE=firsttab
+      - MYSQL_USER=firsttab
+      - MYSQL_PASSWORD=firsttab
+      - MYSQL_ROOT_PASSWORD=firsttab
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+
+  # redis:
+  #   image: redis:4-alpine
+  #   container_name: recruit-redis
+  #   networks:
+  #     - network
+  #   ports:
+  #     - 6379:6379
+
+# docker-compose -f docker-compose.yml up -d
+# docker-compose -f docker-compose.yml down
